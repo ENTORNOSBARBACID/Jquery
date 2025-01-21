@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<style type='text/css'>
+		
+	body{
+		font-family: Georgia, "Times New Roman", Times, serif;
+		display:flex;
+		align-items: center;
+		justify-content: center;
+	}
+	#div{
+	width:400px;
+	height:400px;
+	margin-left:20px;
+	border: 2px black solid;
+	padding: 20px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	background-color:99ccff;
+	}
+		
+		h1{
+			text-align:center;
+			font-size:20pt;
+		}
+		
+		table{
+			background-color: #EFF2FB;
+			text-align:center;
+			width:250px;
+			height: 200px;
+			border: 1px solid #D0A9F5;
+			font-family: 'Cherry Swash', cursive;
+		}
+		
+		input{
+			text-align:center;
+		}
+		td{
+			border: 1px solid #D0A9F5;
+		}
+
+		</style>
+<script src="../jquery-3.7.1.min.js"> </script>
+<script type="text/javascript">
+
+numero=0;
+max=0;
+total=0;
+	$(document).ready( function() {
+			max=aleatorio(0,100);
+			$("#num").val(max)
+
+			$("tr td").each(function(){
+			numero=aleatorio(0,50);
+			$(this).text(numero);
+			})
+
+			$("tr td").click(function(){
+				$(this).css("background-color", "red");
+				total+=Number($(this).text());
+				$("#suma").val(total);
+
+				if(total>max){
+				console.log("hola")
+				$("tr td").each(function(){
+					if($(this).css("background-color")!="rgb(255, 0, 0)"){
+						$(this).text("*")
+					}
+				})
+				$("tr td").off();
+				}
+
+				if(total==max){
+					alert("FELICIDADEEEES");
+					$("tr td").off();
+						$("tr td").each(function(){
+						$(this).css("background-color", "green")
+						
+				})
+				}
+			})
+	})
+
+	function aleatorio (min,max){
+	return Math.floor(Math.random()*(max - min +1)+min);
+	}
+
+</script>
+</head>
+<body>
+<div id="div">
+<br><br>
+TIENES QUE SUMAR <input type="text" id="num"  size=6 value=0 disabled>
+<br><br>Y LLEVAS SUMADO <input type="text" id="suma" size=6 value=0 disabled>
+<br><br>
+<table>
+<tr><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td></tr>
+</table>
+</div>
+</body>
+
+</html>
