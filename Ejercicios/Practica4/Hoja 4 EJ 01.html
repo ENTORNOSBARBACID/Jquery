@@ -3,7 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <title>jQuery Drop Down Menu</title>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js">
+<script src="..\jquery-3.7.1.min.js"> </script>
+<script>
+	$(document).ready(function(){
+		$("ul").hide()
+		$("#item1").hide();
+		$("#item2").hide();
+		$("#item3").hide();
+
+		$("ul").show()
+		$("#item1").show(1000, "linear");
+		$("#item2").show(3000, "linear");
+		$("#item3").show(5000, "linear");
+
+		numeros=["1", "2", "3"];
+
+		$("ul").mouseover(function(){
+			numero=Math.floor(Math.random()*3)+1;
+
+			id="#item"+numero;
+			$(id).css("background-color", "red")
+		})
+		$("ul").mouseout(function(){
+			console.log("hola")
+			$(id).css("background-color", "")
+		})
+	})
 </script>
 <link rel="stylesheet" href="stilos 01.css" type="text/css" />  
 </head>
