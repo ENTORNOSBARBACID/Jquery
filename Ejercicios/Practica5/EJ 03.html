@@ -2,8 +2,37 @@
 <head>
 
 <link rel="StyleSheet" href="estilos3.css" type="text/css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script></script>
+<script src="..\jquery-3.7.1.min.js"> </script>
+
+<script>
+    $(document).ready(function(){
+        $("input").mouseenter(function(){
+            $(this).css("border", "solid 2px red")
+        })
+        $("input").mouseleave(function(){
+            $(this).css("border", "")
+        })
+        $("input").focus(function(){
+            $(this).css("border", "solid 2px red")
+            $(this).css("background-color", "lightgreen")
+        })
+        $("input").blur(function(){
+            $(this).css("border", "")
+            $(this).css("background-color", "white")
+        })
+        $("button").click(function(){
+            let contra=$("#password").val();
+            console.log(contra)
+            if(contra.length<6){
+                $("#password").focus();
+                $("#password").css("border", "solid 2px red")
+                $("#password").css("background-color", "red")
+                $("#password").val("");
+                return false;
+            }
+        })
+    })
+</script>
 
 </head>
 <body>
@@ -21,7 +50,7 @@
 <label>Password<span class="peque">Min. size 6 chars</span></label>
 <input type="password" name="password" id="password" class="campo" />
 
-<button type="submit">Registrar</button>
+<button type="button">Registrar</button>
 </form>
 </div>
 </body>
