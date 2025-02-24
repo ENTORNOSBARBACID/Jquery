@@ -3,6 +3,71 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="main.css">
+<script src="../jquery-3.7.1.min.js"> </script>
+<script>
+	$(document).ready(function(){
+		$("[name=p1]").click(function(){
+			let parrafo = $("#id1 p");
+
+			if (parrafo.length === 0) {
+				parrafo = $("<p>");
+				$("#id1").append(parrafo);
+			}
+
+			ultimo=$("#id1").children("input").last()
+			valor=$("[name=p1]:checked").val()
+			correcto=ultimo.val()
+			console.log(valor)
+			console.log(correcto)
+			if(valor==correcto){
+				parrafo.text("Acertaste coñete");
+			}
+			else{
+				parrafo.text("Mas tonto y sales por el culo");
+			}
+		})
+		$("[name=p2]").click(function(){
+			let parrafo = $("#id2 p");
+
+			if (parrafo.length === 0) {
+				parrafo = $("<p>");
+				$("#id2").append(parrafo);
+			}
+
+			ultimo=$("#id2").children("input").last()
+			valor=$("[name=p2]:checked").val()
+			correcto=ultimo.val()
+			console.log(valor)
+			console.log(correcto)
+			if(valor==correcto){
+				parrafo.text("Acertaste coñete");
+			}
+			else{
+				parrafo.text("Mas tonto y sales por el culo");
+			}
+		})
+		$("[name=p3]").click(function(){
+			let parrafo = $("#id3 p");
+
+			if (parrafo.length === 0) {
+				parrafo = $("<p>");
+				$("#id3").append(parrafo);
+			}
+
+			ultimo=$("#id3").children("input").last()
+			valor=$("[name=p3]:checked").val()
+			correcto=ultimo.val()
+			console.log(valor)
+			console.log(correcto)
+			if(valor==correcto){
+				parrafo.text("Acertaste coñete");
+			}
+			else{
+				parrafo.text("Mas tonto y sales por el culo");
+			}
+		})
+	})
+</script>
 <style>
 #container {
 		position:relative;

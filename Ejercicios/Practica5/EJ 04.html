@@ -2,13 +2,46 @@
 <head>
 <title></title>
 <link rel="stylesheet" href="main.css">
+<script src="..\jquery-3.7.1.min.js"> </script>
+<script>
+    $(document).ready(function(){
+        $('#boton1').click(function(){
+            $('ul').children("li").css("display", "none")
+        })
+        $('#boton2').click(function(){
+            $('ul').children("li").css("display", "")
+        })
+        $('#boton3').click(function(){
+            let nuevoElemento = $('<li>Hijo a√±adido al final</li>');
+            $('ul').append(nuevoElemento)
+        })
+        $('#boton4').click(function(){
+            let nuevoElemento = $('<li>Hijo a√±adido al principio</li>');
+            $('ul').prepend(nuevoElemento)
+        })
+        $('#boton5').click(function(){
+         $('ul').children("li").last().remove();
+        })
+        $('#boton6').click(function(){
+         $('ul').children("li").first().remove();
+        })
+        $('#boton7').click(function(){
+         ultimo=$('ul').children("li").first();
+         ultimo.next("li").remove();
+         ultimo.remove();
 
+        })
+        $('#boton8').click(function(){
+         ultimo=$('ul').children("li").last();
+         ultimo.prev("li").remove();
+         ultimo.remove();
 
-
-
+        })
+    })
+</script>
 </head>
 <body>
-<h1>MÈtodos para manipular nodos del DOM con jQuery.</h1>
+<h1>MÔøΩtodos para manipular nodos del DOM con jQuery.</h1>
 <ul>
 <li>Primer item.</li>
 <li>Segundo item.</li>
@@ -17,11 +50,11 @@
 </ul>
 <input type="button" id="boton1" value="Eliminar la lista completa."><br>
 <input type="button" id="boton2" value="Restaurar Lista"><br>
-<input type="button" id="boton3" value="AÒadir un elemento al final de la lista"><br>
-<input type="button" id="boton4" value="AÒadir un elemento al principio de la lista"><br>
-<input type="button" id="boton5" value="Eliminar el ˙ltimo elemento."><br>
+<input type="button" id="boton3" value="AÔøΩadir un elemento al final de la lista"><br>
+<input type="button" id="boton4" value="AÔøΩadir un elemento al principio de la lista"><br>
+<input type="button" id="boton5" value="Eliminar el ÔøΩltimo elemento."><br>
 <input type="button" id="boton6" value="Eliminar el primer elemento."><br>
 <input type="button" id="boton7" value="Eliminar el primero y segundo elemento."><br>
-<input type="button" id="boton8" value="Eliminar los dos ˙ltimos."><br>
+<input type="button" id="boton8" value="Eliminar los dos ÔøΩltimos."><br>
 </body>
 </html>

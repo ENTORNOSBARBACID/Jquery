@@ -34,9 +34,52 @@
 		}
 
 		</style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" type="text/javascript"> </script>
+<script src="../jquery-3.7.1.min.js"> </script>
 <script type="text/javascript">
- 
+	
+	letras=[];
+	mostrar=[];
+	encontrado=false;
+	fallos=0;
+$(document).ready(function(){
+	$("#oculta").keyup(function(event){
+		$("#oculto").css("display", "");
+		console.log(event.key)
+		if(event.key==" "){
+			letras.push(event.key)
+			mostrar.push(" ");
+		}
+		else{
+		letras.push(event.key)
+		mostrar.push("*");
+		$("#letra").html(mostrar);
+		}
+	})
+	$("#texto").keyup(function(event){
+		letra=event.key;
+		for(let i=0; i<letras.length; i++){
+			if(letra==letras[i]){
+				mostrar[i]=letra;
+				$("#letra").html(mostrar);
+				encontrado=true;
+			}
+		}
+		if(!encontrado){
+			fallos+=1;
+			if(fallos<3)
+				$("#fallos").val(fallos)
+			else{
+				alert("Has perdido colega");
+				$("#fallos").val("3")
+				$("#texto").off()
+				}
+		}
+		$(this).val("");
+		encontrado=false;
+	})
+})
+	
+	
 </script>
 </head>
 <body>
@@ -48,6 +91,7 @@ ESCRIBE LO QUE QUIERAS <input type="password" id="oculta"  size=30  >
 <tr></tr>
 </table>
 <div id="oculto" style="display:none">
+<p id="letra"></p>
 <br><br>
 TECLEA LETRAS <input type="text" id="texto"  size=3>
 <br><br>
