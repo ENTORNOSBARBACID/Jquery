@@ -1,0 +1,114 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/
+xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>EJERCICIO ORDINARIA 2</title>
+		<link href="" res="stylesheet">
+<style>
+.clasediv {
+	position:relative;
+    float: left;
+	width: 120px;
+    height: 160px;
+    margin-left: 50px;
+    margin-top: 50px;
+	color: #515A5A;
+	text-align:center;
+ }
+ .clasemas {
+	position:relative;
+    float: left;
+	width: 340px;
+    margin-left: 50px;
+    margin-top: 100px;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+	border: 1px solid #000000;
+	-moz-border-radius: 7px;
+	-webkit-border-radius: 7px;
+	padding: 10px;
+	background-color:#EAEDED;
+ }
+p,span{
+font-weight: bold;
+color: #515A5A;
+}
+</style>
+<script src="jquery-3.7.1.min.js"></script> 
+<script type="text/javascript">
+
+heroes=[]
+
+	$(document).ready(function(){
+		descargaArchivo()
+		function descargaArchivo() {
+  
+			let peticion_http = new XMLHttpRequest();
+			
+			peticion_http.onreadystatechange = function () {
+					if (peticion_http.readyState === 4 && peticion_http.status === 200) {
+						heroes = JSON.parse(peticion_http.responseText);
+						console.log('Mis heroes: ', heroes);
+						cargarHeroes();
+					};
+			}
+			peticion_http.open('GET', 'heroes.json', true);
+			peticion_http.send();
+			}
+			
+		function cargarHeroes(){
+			cuerpo=$("body")
+			heroes.forEach(heroe => {
+				contenido=$("<div>").attr("clase", "clasediv")
+				nombre=$("<h4>").text(heroe.nombre)
+				imagen=$("<img>").attr("src", heroe.img).attr("width", "100px").attr("height", "100px");
+				bio=$("<div>").text(heroe.bio).css("display", "none")
+				casa=$("<p>").text(heroe.casa)
+				
+				contenido.append(nombre)
+				contenido.append(imagen)
+				contenido.append(bio)
+				contenido.append(casa)
+				cuerpo.prepend(contenido)
+			});
+		}
+		
+		$(document).on("mouseenter", "img", function() {
+        console.log("hola");
+        let contenido = $(this).next().text();
+        $("#masinfo").text(contenido);
+    	});
+
+		$(document).on("click", "p", function(){
+			let nombreCasa = $(this).text().trim(); 
+			let scriptUrl = nombreCasa + ".js"; 
+
+			$("#masinfo").text("Cargando información..."); 
+
+			$.getScript(scriptUrl)
+				.done(function() {
+					console.log("Script " + scriptUrl + " cargado correctamente.");
+				})
+				.fail(function(jqxhr, settings, exception) {
+					$("#masinfo").text("Error al cargar la información."); 
+					console.error("Error al cargar " + scriptUrl + ": ", exception);
+            });
+		})
+	})
+
+</script>
+	
+</head>
+<body>
+<div id="info">
+</div>
+<div class="clasemas">
+Saber mas...
+	<div id="masinfo">
+	</div>
+</div>
+</body>
+</html>

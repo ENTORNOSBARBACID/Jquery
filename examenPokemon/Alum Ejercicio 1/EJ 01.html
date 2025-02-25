@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+ <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>CONTROL FORMULARIOS</title>
+        <link rel="stylesheet" href="main.css">
+ 	<script src="jquery-3.7.1.min.js"> </script>
+	<style>
+	body{
+		font:  "Trebuchet MS", sans-serif;
+		margin: 50px;
+	}
+	.demoHeaders {
+		margin-top: 2em;
+	}
+	.but{
+	width: 15px;
+	height: 15px;
+	border: 0px;
+	
+	}
+	</style>
+<script>
+pokemon=[]
+contador=0
+	$(document).ready(function(){
+
+		descargaArchivo1()
+//1GEN
+		function descargaArchivo1(){
+			let peticion_http = new XMLHttpRequest();
+			
+			peticion_http.onreadystatechange = function () {
+					if (peticion_http.readyState === 4 && peticion_http.status === 200) {
+						pokemon = JSON.parse(peticion_http.responseText);
+						console.log('Mis pokemons: ', pokemon);
+						mostrarPokemon()
+					};
+			}
+			peticion_http.open('GET', 'pokemon.1GEN.json', true);
+			peticion_http.send();
+		}
+
+//2GEN
+		function descargaArchivo2(){
+			let peticion_http = new XMLHttpRequest();
+			
+			peticion_http.onreadystatechange = function () {
+					if (peticion_http.readyState === 4 && peticion_http.status === 200) {
+						pokemon = JSON.parse(peticion_http.responseText);
+						console.log('Mis pokemons 2: ', pokemon);
+						mostrarPokemon()
+					};
+			}
+			peticion_http.open('GET', 'pokemon.2GEN.json', true);
+			peticion_http.send();
+		}
+//3GEN
+function descargaArchivo3(){
+			let peticion_http = new XMLHttpRequest();
+			
+			peticion_http.onreadystatechange = function () {
+					if (peticion_http.readyState === 4 && peticion_http.status === 200) {
+						pokemon = JSON.parse(peticion_http.responseText);
+						console.log('Mis pokemons 3: ', pokemon);
+						mostrarPokemon()
+					};
+			}
+			peticion_http.open('GET', 'pokemon.3GEN.json', true);
+			peticion_http.send();
+		}
+
+		function mostrarPokemon(){
+			contenido=$("#principal")
+			contenido.text("")
+			pokedex=$("<h4>").text("Pokedex: "+pokemon[contador].pokedex+" "+pokemon[contador].nombre)
+			img=$("<img>").attr("src", "pokemon2/"+pokemon[contador].nombre+".png")
+			bio=$("<p>").text(pokemon[contador].comentarios)
+			tipo=$("<h4>").text("tipo: "+pokemon[contador].tipo)
+			contenido.append(pokedex)
+			contenido.append(img)
+			contenido.append(bio)
+			contenido.append(tipo)
+		}
+
+		$("#uno").click(function(){
+			if(contador<(pokemon.length-1)){
+				contador+=1
+				mostrarPokemon()
+			}
+			else{
+				contador=0;
+				mostrarPokemon()
+			}
+		})
+		$("#selGen").on("change", function(){
+			selec=$("option:checked").val()
+			if(selec=="1GEN"){
+				descargaArchivo1()
+				mostrarPokemon()
+			}else if(selec=="2GEN"){
+				descargaArchivo2()
+				mostrarPokemon()				
+			}else{
+				$.getJSON(pokemon, function(data) {
+					console.log("Datos cargados:", data);
+					$("#principal").text("Datos cargados correctamente.");
+					})
+					.fail(function(jqxhr, textStatus, error) {
+						let mensajeError = 'Error al cargar el archivo';
+						console.error(mensajeError);
+						$("#principal").html(`<span style="color:red;">${mensajeError}</span>`);
+					});
+			}
+		})
+
+		$("#dos").click(function(){
+			let nombreCasa = $(this).text().trim(); 
+			let scriptUrl = "masinfo.js"; 
+
+			$("#principal").text("Cargando información..."); 
+
+			$.getScript(scriptUrl)
+				.done(function() {
+					console.log("Script " + scriptUrl + " cargado correctamente.");
+				})
+				.fail(function(jqxhr, settings, exception) {
+					$("#principal").text("Error al cargar la información."); 
+					console.error("Error al cargar " + scriptUrl + ": ", exception);
+            });
+		})
+
+	})
+
+</script>	
+</head>
+<body>
+<h3>  Pokemon </h3>
+ 
+<select id="selGen" >
+<option value="1GEN" >1ª Generación</option>
+<option value="2GEN" >2ª Generación</option>
+<option value="3GEN" >3ª Generación</option>
+</select>
+ 
+<br><br> 
+
+<input type="button" id="uno" value="AVANZAR" > 
+<input type="button" id="dos" value="TRAER TXT"> 
+<div id="principal">
+</div>
+
+</body>
+</html>

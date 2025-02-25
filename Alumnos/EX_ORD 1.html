@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>EXAMEN ORDINARIA 1</title>
+<style type="text/css">
+ body{text-align:center;
+   font-family:"Trebuchet MS", Helvetica, sans-serif;
+   color:#210B61;
+   font-size:10pt;
+ }
+div{
+	width:600px;
+	margin-left:auto;
+	margin-right:auto;
+	}
+#pos1 {
+	position:relative;
+	background-color:#F5DA81;
+}
+.nuevo {
+	position:relative;
+	background-color: #F5B7B1 ;
+}
+ #boton1,#boton2 {display:none}
+			table{
+				margin-right:auto;
+				margin-left:auto;
+				text-align:center;
+			}
+			td{ 	
+				font-size:26px;
+				width:150px;
+				height:150px;
+				text-align:center;
+				border:1px solid black;
+			}
+</style>
+<script src="jquery-3.7.1.min.js"></script> 
+<script type="text/javascript">
+
+var imagenes = new Array ('num 1.JPG','num 2.JPG','num 3.JPG','num 4.JPG','num 5.JPG',
+                          'num 6.JPG','num 7.JPG','num 8.JPG','num 9.JPG' );
+
+contador=0;
+
+	$(document).ready(function(){
+		$("tr td").each(function(){
+			img = $("<img>").attr("src", "fotos/fondo.jpg").attr("width", "150px").attr("height", "150px");
+			$(this).html(img);
+			})
+			
+		$("tr td").one("click", function(){
+				img = $("<img>").attr("src", "fotos/"+imagenes[contador]).attr("width", "150px").attr("height", "150px");
+				$(this).hide()
+				$(this).html(img)
+				$(this).show(500)
+			})
+
+
+		$("tr td").click(function(){
+			if(contador<9){
+				img = $("<img>").attr("src", "fotos/"+imagenes[contador]).attr("width", "150px").attr("height", "150px");
+				$(this).html(img);
+				contador+=1;
+			}
+			if(contador>=9){
+				$("tr td").off()
+				$(".boton").each(function(){
+					$(this).show()
+				})
+			}
+		})
+		$("#boton1").click(function(){
+			$("tr td").each(function(){
+				$(this).delay(500).animate({opacity:'0.1'},200)
+			})
+		})
+		$("#boton2").click(function(){
+			contador=0;
+			$("tr td").each(function(){
+				img = $("<img>").attr("src", "fotos/"+imagenes[contador]).attr("width", "150px").attr("height", "150px");
+				$(this).html(img);
+				$(this).css("opacity", 1)
+			contador+=1;
+			})
+		})
+		$("#pos1").mouseenter(function(){
+			$(this).css("background-color", "red")
+		})
+		$("#pos1").mouseleave(function(){
+			$(this).css("background-color", "#F5DA81")
+		})
+		$("h1").click(function(){
+			$(this).wrap("<div class=nuevo></div>")
+		})
+	})
+
+
+</script>
+</head>
+<body >
+<h1>JUGANDO CON LOS NUMEROS</h1>
+<div id="central">
+<fieldset id="pos1">
+Bienvenido a nuestra web, puedes jugar y divertirte
+</fieldset>
+</div>
+ 
+<div id="div1">
+</div>
+<br><br><br>
+ 
+<p align="center">
+<table>
+<tr>
+<td></td><td></td><td></td>
+</tr>
+<tr>
+<td></td><td></td><td></td>
+</tr>
+<tr>
+<td></td><td></td><td></td>
+</tr>
+</table>
+<br><br>
+<input type="button" id="boton1" class="boton" value="PULSAME">
+<br><br>
+<input type="button" id="boton2" class="boton" value="LOS COLOCO">
+</p>
+
+</body>
+</html>
