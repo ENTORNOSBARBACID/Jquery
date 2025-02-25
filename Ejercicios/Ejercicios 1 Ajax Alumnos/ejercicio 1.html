@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+  
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript"></script>
+<style>
+table,th,td {
+  border : 1px solid black;
+  border-collapse: collapse;
+}
+th,td {
+  padding: 5px;
+}
+</style>
+</head>
+
+<script>
+
+let categorias=[]
+
+function descargaArchivo() {
+  
+    let peticion_http = new XMLHttpRequest();
+    
+    peticion_http.onreadystatechange = function () {
+      console.log("hola")
+        if (peticion_http.readyState === 4 && peticion_http.status === 200) {
+            categorias = JSON.parse(peticion_http.responseText);
+            console.log('Mis categorias: ', categorias);
+    };
+  }
+    peticion_http.open('GET', 'discos.json', true);
+    peticion_http.send();
+	
+
+}
+
+function cargarDatos(){
+console.log(categorias)
+  tabla=$("#demo")
+  tr = $("<tr>");  
+
+  tr.append($("<th>").text("ARTISTA"));
+  tr.append($("<th>").text("TÍTULO"));
+  tr.append($("<th>").text("DISCOGRAFÍA"));
+
+  tabla.append(tr);
+  
+  
+  categorias.catalogo.forEach(c => {
+    console.log(c.artist);
+    
+    tr = $("<tr>");
+    
+    let tdArtist = $("<td>").text(c.artist);
+    let tdTitle = $("<td>").text(c.title);     
+    let tdCompany = $("<td>").text(c.company); 
+    
+    tr.append(tdArtist);
+    tr.append(tdTitle);
+    tr.append(tdCompany);
+    tabla.append(tr);
+});
+
+}
+
+
+
+</script>
+
+
+<body onload="descargaArchivo()">
+
+<button type="button" onclick="cargarDatos()">MIS DISCOS</button>
+<br><br>
+<table id="demo"></table>
+
+</body>
+</html>

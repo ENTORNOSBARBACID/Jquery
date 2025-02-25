@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/
+xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>EJERCICIO 3 </title>
+		<link rel="stylesheet" href="main.css">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<script type="text/javascript">
+let empleados = []; // Variable global para almacenar los datos
+
+// Función que se ejecuta al cargar la página
+function descargaArchivo() {
+    let peticion_http = new XMLHttpRequest();
+
+    peticion_http.onreadystatechange = function () {
+        if (peticion_http.readyState === 4 && peticion_http.status === 200) {
+            empleados = JSON.parse(peticion_http.responseText);
+            console.log("Datos cargados:", empleados);
+        }
+    };
+
+    peticion_http.open('GET', 'empleados.json', true);
+    peticion_http.send();
+}
+
+// Función para mostrar los datos dependiendo de la selección
+function cargarDatos() {
+	seleccion=$("#sel1").val();
+	lista=$("#ul1");
+	lista.html("");
+	empleados.forEach(e=>{
+		li=$("<li>");
+		if(seleccion==1){
+			li.html(e.nombre+"-"+e.apellido+"-"+e.departamento);
+		}else if(seleccion==2){
+			li.html(e.nombre+"-"+e.apellido+"-"+e.departamento+"-"+e.salario);
+		}
+		if (seleccion != "0") {
+             lista.append(li);
+         }
+		lista.append(li)
+	})
+
+
+
+    // let seleccion = document.getElementById("sel1").value; // Obtener opción seleccionada
+    // let lista = document.getElementById("ul1");
+    // lista.innerHTML = ""; // Limpiar la lista antes de actualizar
+
+    // empleados.forEach(emp => {
+    //     let li = document.createElement("li");
+        
+    //     // Mostrar datos con o sin salario según la opción elegida
+    //     if (seleccion == "1") {
+    //         li.textContent = `${emp.nombre} ${emp.apellido} - ${emp.departamento}`;
+    //     } else if (seleccion == "2") {
+    //         li.textContent = `${emp.nombre} ${emp.apellido} - ${emp.departamento} - Salario: ${emp.salario}`;
+    //     }
+        
+    //     // Solo agregar el elemento si se seleccionó una opción válida
+    //     if (seleccion != "0") {
+    //         lista.appendChild(li);
+    //     }
+    // });
+}
+
+</script>
+</head>
+<body onload="descargaArchivo()">
+<div id="titulo"> <h1> EMPLEADOS</h1> </div>
+<select id="sel1" onchange="cargarDatos()">
+<option value="0">Selecciona</option>
+<option value="1">Datos sin salario</option>
+<option value="2">Datos con salario</option>
+</select>
+<br><br>
+<ul id="ul1">
+
+</ul>
+</body>
+</html>

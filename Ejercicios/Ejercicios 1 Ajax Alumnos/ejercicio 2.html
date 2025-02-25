@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/
+xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+	<meta charset="UTF-8">
+		<title> </title>
+	<link href="" rel="stylesheet">
+</head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript"></script>
+
+<script>
+contador=2;
+function descargaArchivo() {
+    let peticion_http = new XMLHttpRequest();
+
+    peticion_http.onreadystatechange = function () {
+        if (peticion_http.readyState === 4 && peticion_http.status === 200) {
+            fotos = JSON.parse(peticion_http.responseText);
+            console.log(fotos);
+			fotos.fotos.forEach((f, contador) => {
+				contador+=1;
+                var opcion = $("<option>").attr("value", contador).text(f.imagen);
+				console.log(opcion)
+                $("#sel1").append(opcion);
+				console.log("añadido");
+            });
+        }
+    };
+    peticion_http.open('GET', 'fotos.json', true);
+    peticion_http.send();
+	
+}
+
+	function cargarDatos(){
+		
+		
+		seleccion=$("#sel1")
+		console.log(seleccion)
+		content=$("#demo")
+		content.html("")
+		opcion=$("option:checked").text()
+		console.log(opcion)
+		fotos.fotos.forEach(f=>{
+
+			imagen=$("<img>");
+			
+			if(seleccion.val()==1){
+				if(opcion==f.imagen)
+					imagen.attr("src", f.src)
+			}
+			else if(seleccion.val()==2){
+				if(opcion==f.imagen)
+					imagen.attr("src", f.src)
+			}else{
+				if(opcion==f.imagen)
+					imagen.attr("src", f.src)
+		}
+
+			content.append(imagen)
+		})
+	}
+
+</script>
+
+<body onload="descargaArchivo()">
+<div id="titulo"> <h1> BUSCAR FOTOS</h1> </div>
+<select id="sel1" onchange="cargarDatos()">
+	<option value="0">MIS FOTOS</option>
+</select>
+<div id="demo"></div>
+</body>
+</html>
